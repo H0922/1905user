@@ -17,6 +17,8 @@ Route::get('/', function () {
 Route::get('/phpinfo', function () {
     phpinfo();
 });
-Route::get('week','Alipay\AlipayController@week');
+Route::get('user/reg','Users\UserController@reg');
+Route::get('user/login','Users\UserController@login');
+Route::get('user/userinfo','Users\UserController@userinfo');
 
 
