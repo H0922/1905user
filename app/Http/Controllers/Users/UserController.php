@@ -7,16 +7,45 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
+    //注册展示页面
+    public function reglist(){
+        return view('user.reglist');
+    }
+
+    //注册执行
+    public function reginsert(){
+        $data=request()->input();
+        unset($data['_token']);
+        // dd($data);
+        echo $this->reg($data);
+    }
+    //登录展示页面
+    public function loginlist(){
+        return view('user.loginlist');
+
+    }
+
+    public function logininsert(){
+        $data=request()->input();
+        unset($data['_token']);
+        echo $this->login($data);
+    }
+    public function userlist(){
+        return view('user.userlist');
+
+    }
+    public function userselect(){
+        $data=request()->input();
+        unset($data['_token']);
+        $name=$data['name'];
+        $token=$data['pwd'];
+        dump($this->userinfo($name,$token));
+
+    }
     //注册接口测试
-   public function reg(){
+   public function reg($data){
         //数据
         $url='http://passport.bianaoao.top/pass/reg';
-        $data=[
-            'pass_name'=>'huangxiaobo',
-            'pass_tel'=>'123456789',
-            'pass_email'=>'737@qq.com',
-            'pass_pwd'=>'123456'
-        ];
         $ch=curl_init();
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_POST,1);
@@ -26,12 +55,8 @@ class UserController extends Controller
    }
    
    //登录接口测试
-   public function login(){
+   public function login($data){
     $url='http://passport.bianaoao.top/pass/login';
-    $data=[
-        'name'=>'huangxiaobo',
-        'pwd'=>'123456'
-    ];
     $ch=curl_init();
     curl_setopt($ch,CURLOPT_URL,$url);
     curl_setopt($ch,CURLOPT_POST,1);
@@ -41,9 +66,9 @@ class UserController extends Controller
    }
 
    //调用用户信息接口
-   public function userinfo(){
-    $url='http://passport.bianaoao.top/pass/Userinfo?name=zhangsan';
-    $token='qXN1YMYDrV2koWtNG6HtSO9l5Ybng5rj';
+   public function userinfo($name,$token){
+    $url='http://passport.bianaoao.top/pass/Userinfo?name='.$name;
+   // $token='qXN1YMYDrV2koWtNG6HtSO9l5Ybng5rj';
         $data=[
             'token:'.$token,
         ];
