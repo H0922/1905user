@@ -25,7 +25,7 @@ Route::post('user/reginsert','Users\UserController@reginsert');
 Route::get('user/loginlist','Users\UserController@loginlist');
 Route::post('user/logininsert','Users\UserController@logininsert');
 Route::get('user/userlist','Users\UserController@userlist');
-Route::post('user/userselect','Users\UserController@userselect');
+Route::post('user/userselect','Users\UserController@userselect')->middleware('Index');
 
 
 
